@@ -4,10 +4,11 @@ $dbname = 'data';
 $username = 'tugas';
 $password = '12345'; 
 
-try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    die("Koneksi ke database gagal: " . $e->getMessage());
+// Koneksi ke database menggunakan mysqli
+$mysqli = new mysqli($host, $username, $password, $dbname);
+
+// Periksa koneksi
+if ($mysqli->connect_error) {
+    die("Koneksi ke database gagal: " . $mysqli->connect_error);
 }
 ?>

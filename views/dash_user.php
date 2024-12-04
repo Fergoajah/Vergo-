@@ -10,55 +10,37 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'user') {
 $username = $_SESSION['username'];
 
 // Query untuk mengambil data user yang sedang login
-$stmt = $pdo->prepare("SELECT * FROM users WHERE username = :username");
-$stmt->execute(['username' => $username]);
+$query = "SELECT * FROM users WHERE username = '$username'";
+$result = $mysqli->query($query);
 
-$user = $stmt->fetch(PDO::FETCH_ASSOC);
+if ($result && $result->num_rows > 0) {
+    $user = $result->fetch_assoc();
+} else {
+    die("User not found");
+}
 ?>
 <!DOCTYPE html>
 <html>
 <head>
     <title>User Dashboard</title>
-    <style>
-        body{
-            font-size: 20px;
-            justify-content: center;
-            align-items: center;
-            display: flex;
-            height: 80vh;
-        }
-        li{
-            display: flex; /* Gunakan flexbox untuk membuat elemen sejajar */
-            justify-content: space-between; /* Jarak antara label dan nilai */
-            padding: 10px 0; /* Tambahkan spasi vertikal antara item */
-            border-bottom: 1px solid #ddd; /* Garis bawah untuk setiap item */
-            font-size: 20px; /* Ukuran font yang nyaman */
-        }
-        ul {
-            padding: 0;
-            margin: 0;
-            list-style-type: none; /* Hilangkan bullet list */
-        }
-        .a {
-            text-decoration: none;
-            margin-top: 20px; /* Jarak atas */
-            display: inline-block;
-        }
-    </style>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div>
-    <h2>Welcome, <?= $user['username']?>!</h2>
-    <form action="">
-    <p>PROFILE</p>
-    <ul>
-        <li>Nama: <?= $user['nama'] ?></li>
-        <li>Username: <?= $user['username'] ?></li>
-        <li>Email: <?= $user['email'] ?></li>
-    </ul>
-    </form>
-    <a class='a' href="login.php">Logout</a>
+    <div class="userh2">
+        <h2>Welcome, <?= htmlspecialchars($user['username']) ?>!</h2>
     </div>
-
+    <div class='abc'>
+        <p>PROFILE</p>
+        <ul>
+            <li>Nama: <?= htmlspecialchars($user['nama']) ?></li>
+            <li>Username: <?= htmlspecialchars($user['username']) ?></li>
+            <li>Email: <?= htmlspecialchars($user['email']) ?></li>
+        </ul>
+        <a class='logout' href="logout.php">Logout</a>
+    </div>
+    <a href="chat.html" class="chat-icon">
+        <i class="fas fa-comment-alt"></i>
+    </a>
 </body>
 </html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chat</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Live Chat Section -->
+    <div class="container">
+      <h3>Chat</h3>
+      <form id="chat-form">
+        <!-- Form untuk memilih user yang akan dikirim pesan -->
+        <select id="receiver" required>
+          <option value="">--Pilih User--</option>
+          <!-- User list will be populated here -->
+        </select>
+        <div id="chat-box" class="hidden">
+          <!-- Chat messages will load here -->
+        </div>
+        <textarea id="message" placeholder="Ketik Pesan" required></textarea>
+        <div class="btnchat">
+          <a class="btnbackuser" href="dash_user.php">Back</a>
+          <button class="btnsubuser" type="submit">Send</button>
+        </div>
+      </form>
+    </div>
+    <a class="logout" href="logout.php">Logout</a>
+    <script src="chat.js"></script>
+  </body>
+</html>
