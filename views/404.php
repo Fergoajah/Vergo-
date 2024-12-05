@@ -52,7 +52,7 @@
     <div class="container">
         <h1>404</h1>
         <p>Oops! The page you're looking for doesn't exist. <br> It might have been moved or deleted.</p>
-        <a href="/">Go Back to Homepage</a>
+        <a href="/views/login.php">Go Back to Homepage</a>
     </div>
 </body>
 </html>

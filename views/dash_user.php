@@ -24,20 +24,18 @@ if ($result && $result->num_rows > 0) {
 <head>
     <title>User Dashboard</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="userh2">
-        <h2>Welcome, <?= htmlspecialchars($user['username']) ?>!</h2>
-    </div>
-    <div class='abc'>
-        <p>PROFILE</p>
-        <ul>
-            <li>Nama: <?= htmlspecialchars($user['nama']) ?></li>
-            <li>Username: <?= htmlspecialchars($user['username']) ?></li>
-            <li>Email: <?= htmlspecialchars($user['email']) ?></li>
-        </ul>
+    <div class="abc">
+    <h2>User Profile Card</h2>
+        <img src="/views/img/orang.jpeg" alt="glady" style="width:100%">
+        <h1> <?= $user['nama'] ?> </h1>
+        <p class="title"><?= $user['username'] ?></p>
+        <p><?= $user['email'] ?></p>
         <a class='logout' href="logout.php">Logout</a>
+
     </div>
     <a href="chat.html" class="chat-icon">
         <i class="fas fa-comment-alt"></i>

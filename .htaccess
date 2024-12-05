@@ -1,5 +1,15 @@
-RewriteEngine on
+RewriteEngine On
+
+# Mengizinkan akses langsung ke file statis seperti CSS, JS, gambar, dll.
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule \.(css|js|jpg|jpeg|png|gif|svg)$ - [L]
+
+# Routing untuk login.php jika URL root diakses
 RewriteCond %{SCRIPT_FILENAME} !-f
 RewriteCond %{SCRIPT_FILENAME} !-d
-RewriteCond %{SCRIPT_FILENAME} !-l
-RewriteRule ^(.*)$ index.php [L,QSA]
+RewriteRule ^$ /views/login.php [L]
+
+# Arahkan request lainnya ke halaman 404
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ /views/404.php [L]
