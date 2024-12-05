@@ -3,7 +3,7 @@ session_start();
 require 'koneksi.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Insert message
+    // Memasukan pesan ke database
     $sender = $_SESSION['username'];
     $receiver = $_POST['receiver'];
     $message = $_POST['message'];
@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo "Error: " . $mysqli->error;
     }
 } elseif ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    // Retrieve messages for the selected receiver
+    // mengambil pesandari database
     $username = $_SESSION['username'];
     $receiver = isset($_GET['receiver']) ? $_GET['receiver'] : '';
 
