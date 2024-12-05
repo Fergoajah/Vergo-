@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const receiverSelect = document.getElementById("receiver");
   const messageInput = document.getElementById("message");
 
-  // bagian untuk meload user dari server
+  // Bagian untuk meload user dari server
   const loadUsers = () => {
     fetch("users_handler.php")
       .then((response) => response.json())
