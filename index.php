@@ -1,5 +1,5 @@
 <?php
-
+// Routing untuk index
 $request = $_SERVER['REQUEST_URI'];
 $viewDir = '/views/';
 
