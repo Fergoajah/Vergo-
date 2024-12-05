@@ -4,7 +4,7 @@ $dbname = 'data';
 $username = 'tugas';
 $password = '12345'; 
 
-// Koneksi ke database menggunakan mysqli
+// koneksi ke database
 $mysqli = new mysqli($host, $username, $password, $dbname);
 
 // Periksa koneksi
