@@ -21,4 +21,5 @@ switch ($request) {
         http_response_code(404);
         require __DIR__ . $viewDir . '404.php';
 }
+
 ?>
