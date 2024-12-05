@@ -19,4 +19,5 @@ if ($result && $result->num_rows > 0) {
 
 // Mengembalikan hasil dalam format JSON
 echo json_encode($users);
+
 ?>
