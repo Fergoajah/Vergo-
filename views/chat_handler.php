@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo "Error: " . $mysqli->error;
     }
 } elseif ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    // mengambil pesandari database
+    // mengambil pesan dari database
     $username = $_SESSION['username'];
     $receiver = isset($_GET['receiver']) ? $_GET['receiver'] : '';
 
