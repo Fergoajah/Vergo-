@@ -37,10 +37,10 @@ if ($result && $result->num_rows > 0) {
             </tr>
             <?php foreach ($users as $user): ?>
                 <tr>
-                    <td><?= htmlspecialchars($user['nama']) ?></td>
-                    <td><?= htmlspecialchars($user['username']) ?></td>
-                    <td><?= htmlspecialchars($user['email']) ?></td>
-                    <td><?= htmlspecialchars($user['role']) ?></td>
+                    <td><?= $user['nama'] ?></td>
+                    <td><?= $user['username'] ?></td>
+                    <td><?= $user['email'] ?></td>
+                    <td><?= $user['role'] ?></td>
                 </tr>
             <?php endforeach; ?>
         </table>
