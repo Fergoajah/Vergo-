@@ -9,7 +9,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'user') {
 
 $username = $_SESSION['username'];
 
-// Query untuk mengambil data user yang sedang login
+// Query SQL untuk mengambil data user yang sedang login
 $query = "SELECT * FROM users WHERE username = '$username'";
 $result = $mysqli->query($query);
 
