@@ -17,34 +17,54 @@ document.addEventListener("DOMContentLoaded", () => {
       });
   };
 
-
   // bagian untuk meload chat dari user tertentu
+  const formatDate = (timestamp) => {
+    const options = { day: "2-digit", month: "2-digit", year: "numeric" };
+    return new Date(timestamp).toLocaleDateString("id-ID", options);
+  };
+
+  const formatTime = (timestamp) => {
+    const options = { hour: "2-digit", minute: "2-digit", hour12: false };
+    return new Date(timestamp).toLocaleTimeString("id-ID", options);
+  };
+
   const loadChat = () => {
     const receiver = receiverSelect.value.trim();
-    chatBox.classList.toggle("hidden", !receiver); // Tampilkan atau sembunyikan chatbox
+    chatBox.classList.toggle("hidden", !receiver);
 
-    if (receiver) {
-      fetch(`chat_handler.php?receiver=${encodeURIComponent(receiver)}`)
-        .then((response) => response.json())
-        .then((messages) => {
-          chatBox.innerHTML = messages
-            .map((msg) => {
-              const messageClass =
-                msg.sender === receiver ? "receiver" : "sender";
-              return `<div class="chat-message ${messageClass}">
-                                        <strong>${msg.sender}:</strong><br> 
-                                        ${msg.message} 
-                                        <small style="color: gray;">[${msg.timestamp}]</small>
-                                    </div>`;
-            })
-            .join("");
-          chatBox.scrollTop = chatBox.scrollHeight; // Auto scroll ke bawah
-        });
-    }
+    if (!receiver) return;
+
+    fetch(`chat_handler.php?receiver=${encodeURIComponent(receiver)}`)
+      .then((res) => res.json())
+      .then((messages) => {
+        let lastDate = null;
+ 
+        chatBox.innerHTML = messages
+          .map(({ sender, message, timestamp }) => {
+            const date = formatDate(timestamp);
+            const time = formatTime(timestamp);
+            let dateLabel = "";
+
+            if (date !== lastDate) {
+              dateLabel = `<div class="date-label">${date}</div>`;
+              lastDate = date;
+            }
+
+            return `
+              ${dateLabel}
+              <div class="chat-message ${
+                sender === receiver ? "receiver" : "sender"
+              }">
+              ${message}<div class="timestamp">${time}</div>
+              </div>`;
+          })
+          .join("");
+        chatBox.scrollTop = chatBox.scrollHeight;
+      });
   };
+
   loadUsers();
   receiverSelect.addEventListener("change", loadChat);
-
 
   // bagian untuk pengiriman pesan
   chatForm.addEventListener("submit", (e) => {
