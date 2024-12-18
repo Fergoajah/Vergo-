@@ -33,6 +33,7 @@ if ($result && $result->num_rows > 0) {
                 <th>Nama</th>
                 <th>Username</th>
                 <th>Email</th>
+                <th>Alamat</th>
                 <th>Role</th>
             </tr>
             <?php foreach ($users as $user): ?>
@@ -40,11 +41,13 @@ if ($result && $result->num_rows > 0) {
                     <td><?= $user['nama'] ?></td>
                     <td><?= $user['username'] ?></td>
                     <td><?= $user['email'] ?></td>
+                    <td><?= $user['alamat']?></td>
                     <td><?= $user['role'] ?></td>
                 </tr>
             <?php endforeach; ?>
         </table>
         <a class="logout" href="logout.php">Logout</a>
+        <a class="logout" href="pengumuman.php">Create Announcement</a>
     </div>
 </body>
 </html>
