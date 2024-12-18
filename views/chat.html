@@ -7,23 +7,29 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+
     <!-- Chat Page -->
     <div class="container">
       <h3>Chat</h3>
       <form id="chat-form">
+
         <!-- pilih user -->
         <select id="receiver" required>
           <option value="">--Pilih User--</option>
         </select>
+
         <!-- section chat -->
         <div id="chat-box" class="hidden">
+
         </div>
+
         <!-- ketik pesan -->
         <textarea id="message" placeholder="Ketik Pesan" required></textarea>
         <div class="btnchat">
           <a class="btnbackuser" href="dash_user.php">Back</a>
           <button class="btnsubuser" type="submit">Send</button>
         </div>
+        
       </form>
     </div>
     <a class="logout" href="logout.php">Logout</a>
