@@ -9,36 +9,232 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'user') {
 
 $username = $_SESSION['username'];
 
-// Query SQL untuk mengambil data user yang sedang login
-$query = "SELECT * FROM users WHERE username = '$username'";
-$result = $mysqli->query($query);
+// Fetch user data
+$queryUser = "SELECT * FROM users WHERE username = ?";
+$stmtUser = $mysqli->prepare($queryUser);
+$stmtUser->bind_param("s", $username);
+$stmtUser->execute();
+$resultUser = $stmtUser->get_result();
+$user = $resultUser->fetch_assoc();
+$user_id = $user['id'];
 
-if ($result && $result->num_rows > 0) {
-    $user = $result->fetch_assoc();
-} else {
-    die("User not found");
+// Fetch unread announcements count
+$queryNew = "
+    SELECT COUNT(*) AS unread_count
+    FROM announcements a
+    LEFT JOIN announcement_reads ar 
+    ON a.id = ar.announcement_id AND ar.user_id = ?
+    WHERE ar.announcement_id IS NULL
+";
+$stmtNew = $mysqli->prepare($queryNew);
+$stmtNew->bind_param("i", $user_id);
+$stmtNew->execute();
+$resultNew = $stmtNew->get_result();
+$unreadCount = $resultNew->fetch_assoc()['unread_count'];
+
+// Fetch all announcements
+$queryAll = "SELECT * FROM announcements ORDER BY created_at DESC";
+$resultAll = $mysqli->query($queryAll);
+
+// Mark announcement as read
+if (isset($_GET['view']) && is_numeric($_GET['view'])) {
+    $announcement_id = intval($_GET['view']);
+    $checkRead = "
+        SELECT * FROM announcement_reads 
+        WHERE user_id = ? AND announcement_id = ?
+    ";
+    $stmtCheck = $mysqli->prepare($checkRead);
+    $stmtCheck->bind_param("ii", $user_id, $announcement_id);
+    $stmtCheck->execute();
+    $resultCheck = $stmtCheck->get_result();
+
+    if ($resultCheck->num_rows === 0) {
+        $insertRead = "INSERT INTO announcement_reads (user_id, announcement_id) VALUES (?, ?)";
+        $stmtInsert = $mysqli->prepare($insertRead);
+        $stmtInsert->bind_param("ii", $user_id, $announcement_id);
+        $stmtInsert->execute();
+    }
+
+    // Redirect to file or stay on page
+    $queryFile = "SELECT file_path FROM announcements WHERE id = ?";
+    $stmtFile = $mysqli->prepare($queryFile);
+    $stmtFile->bind_param("i", $announcement_id);
+    $stmtFile->execute();
+    $resultFile = $stmtFile->get_result();
+    if ($file = $resultFile->fetch_assoc()) {
+        header("Location: " . $file['file_path']);
+        exit();
+    }
 }
 ?>
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>User Dashboard</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* Styling Icon Notification */
+        .notification-container {
+            position: fixed;
+            /* Tetap berada di layar saat di-scroll */
+            top: 20px;
+            /* Jarak dari atas */
+            right: 20px;
+            /* Jarak dari kanan */
+            z-index: 9999;
+            /* Pastikan selalu di atas elemen lain */
+        }
+
+        .notification-icon {
+            position: relative;
+            font-size: 24px;
+            cursor: pointer;
+            color: #333;
+            /* Warna ikon */
+        }
+
+        .notification-icon:hover {
+            color: #007BFF;
+            /* Warna saat di-hover */
+        }
+
+        .badge {
+            position: absolute;
+            top: -8px;
+            /* Posisi badge di atas ikon */
+            right: -8px;
+            /* Posisi badge di kanan ikon */
+            background: red;
+            color: white;
+            border-radius: 50%;
+            padding: 3px 8px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        /* Dropdown Notification */
+        .notification-dropdown {
+            position: absolute;
+            top: 40px;
+            /* Muncul di bawah ikon */
+            right: 0;
+            /* Sejajar dengan ikon */
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 320px;
+            max-height: 400px;
+            overflow-y: auto;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: none;
+            /* Default tersembunyi */
+            z-index: 1000;
+        }
+
+        .notification-dropdown.active {
+            display: block;
+            /* Tampilkan dropdown saat aktif */
+        }
+
+        .notification-dropdown h3 {
+            text-align: center;
+            margin: 0;
+            padding: 10px;
+            background: #f5f5f5;
+            border-bottom: 1px solid #ddd;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .notification-item {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .notification-item:last-child {
+            border-bottom: none;
+        }
+
+        .notification-item h4 {
+            margin: 0;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .notification-item p {
+            margin: 5px 0;
+            font-size: 12px;
+            color: #555;
+        }
+
+        .notification-item a {
+            color: #007BFF;
+            text-decoration: none;
+            font-size: 12px;
+        }
+
+        .notification-item a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
+
 <body>
     <div class="abc">
-    <h2>User Profile Card</h2>
-        <img src="/views/img/orang.jpeg" alt="glady" style="width:100%">
-        <h1> <?= $user['nama'] ?> </h1>
-        <p class="title"><?= $user['username'] ?></p>
-        <p><?= $user['email'] ?></p>
+        <h1>Welcome, <?= ($user['nama']); ?>!</h1>
+        <img class="orang" src="/views/img/orang.jpeg" alt="John" style="width:50%">
+        <hr>
+        <p><span class="label">Username:</span> <?= ($user['username']); ?></p>
+        <p><span class="label">Email:</span> <?= ($user['email']); ?></p>
+        <p><span class="label">Alamat:</span> <?= ($user['alamat']); ?></p>
         <a class='logout' href="logout.php">Logout</a>
-
     </div>
+<!-- Notification Icon -->
+<div class="notification-container">
+        <i class="fas fa-bell notification-icon" id="notifIcon">
+            <?php if ($unreadCount > 0): ?>
+                <span class="badge"><?= $unreadCount; ?></span>
+            <?php endif; ?>
+        </i>
+        <div class="notification-dropdown" id="notifDropdown">
+            <h3>Announcements</h3>
+            <?php while ($announcement = $resultAll->fetch_assoc()): ?>
+                <div class="notification-item">
+                    <h4><?= htmlspecialchars($announcement['title']); ?></h4>
+                    <p><?= nl2br(htmlspecialchars($announcement['message'])); ?></p>
+                    <small>Posted on: <?= $announcement['created_at']; ?></small>
+                    <?php if (!empty($announcement['file_path'])): ?>
+                        <p>
+                            <a href="?view=<?= $announcement['id']; ?>">View Attachment</a>
+                        </p>
+                    <?php endif; ?>
+                </div>
+            <?php endwhile; ?>
+        </div>
+    </div>
+
     <a href="chat.html" class="chat-icon">
         <i class="fas fa-comment-alt"></i>
     </a>
+    <script>
+        // Toggle Dropdown
+        document.getElementById('notifIcon').addEventListener('click', function () {
+            const dropdown = document.getElementById('notifDropdown');
+            dropdown.classList.toggle('active');
+        });
+
+        window.addEventListener('click', function (e) {
+            const notifIcon = document.getElementById('notifIcon');
+            const dropdown = document.getElementById('notifDropdown');
+            if (!notifIcon.contains(e.target) && !dropdown.contains(e.target)) {
+                dropdown.classList.remove('active');
+            }
+        });
+
+    </script>
 </body>
+
 </html>
