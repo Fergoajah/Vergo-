@@ -73,7 +73,6 @@ p {
 
 /* dash_admin.php */
 
-
 .admindiv {
   background: #ffffff;
   border-radius: 15px;
@@ -143,45 +142,80 @@ table td {
 
 /* dash_user.php */
 
+/* General Styling */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f8f5ff; /* Warna latar belakang yang lembut */
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
+
 .abc {
-  background: #ffffff;
-  border-radius: 15px;
-  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-  width: 350px;
-  padding: 20px 30px;
+  max-width: 500px; /* Lebih cocok di berbagai perangkat */
+  margin: 50px auto;
+  background: #fff;
+  padding: 25px;
+  border-radius: 12px; /* Membuat sudut lebih halus */
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15); /* Shadow lebih dalam */
   text-align: center;
 }
 
-.userh2 {
-  color: #fff;
-  margin-bottom: 5px;
-  font-size: 25px;
+.abc h1 {
+  font-size: 30px;
+  margin-bottom: 15px;
+  color: #2c3e50; /* Warna biru gelap */
+}
+
+.abc img.orang {
+  display: block;
+  margin: 0 auto 15px;
+  width: 50%;
+  border-radius: 50%; /* Membuat gambar bulat */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Shadow pada gambar */
+  transition: transform 0.3s ease;
+}
+
+.abc img.orang:hover {
+  transform: scale(1.05); /* Efek zoom saat hover */
+}
+
+.abc hr {
+  border: none;
+  height: 1px;
+  background-color: #ddd;
+  margin: 15px 0;
 }
 
 .abc p {
   font-size: 20px;
-  font-weight: bold;
-  color: #040720;
-  margin-bottom: 10px;
+  margin: 12px 0;
+  color: #444;
 }
 
-a.a {
-  display: inline-block;
-  text-decoration: none;
-  font-size: 14px;
+.abc .label {
   font-weight: bold;
-  color: #ffffff;
-  background: #040720;
-  padding: 10px 25px;
-  border-radius: 30px;
-  margin: 10px 5px;
-  transition: all 0.3s ease-in-out;
+  color: #222;
 }
 
-a.a:hover {
-  background: #fff;
-  transform: scale(1.1);
-  color: #040720;
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+  .abc {
+    margin: 30px 15px;
+    padding: 20px;
+  }
+  
+  .abc h1 {
+    font-size: 22px;
+  }
+  
+  .abc img.orang {
+    width: 70%;
+  }
+  
+  .abc p {
+    font-size: 14px;
+  }
 }
 .chat-icon {
   position: fixed;
@@ -209,16 +243,14 @@ a.a:hover {
 .chat-icon i {
   font-size: 24px;
 }
-.abc li {
-  padding: 10px;
-}
+
 /* --- */
 
 /* chat.html */
 
 h3 {
   text-align: center;
-  color: #fff;
+  color: #040720;
   margin-bottom: 20px;
   font-size: 30px;
 }
@@ -237,19 +269,32 @@ h3 {
 }
 .chat-message {
   margin: 10px;
-  padding: 10px;
+  padding: 15px;
   border-radius: 5px;
-  max-width: 60%;
+  max-width: 100%;
+  word-wrap: break-word;
+  box-sizing: border-box; /* Pastikan padding termasuk dalam lebar total */
 }
 
 .sender {
   background-color: #cefea3;
-  align-self: flex-end; 
+  align-self: flex-end;
 }
 
 .receiver {
-  background-color: #a8cffd; 
-  align-self: flex-start; 
+  background-color: #a8cffd;
+  align-self: flex-start;
+}
+.date-label {
+  text-align: center;
+  margin: 10px 0;
+  font-size: 0.9em;
+  color: gray;
+}
+.chat-message .timestamp {
+  display: inline-block;
+  font-size: 0.8em;
+  color: gray;
 }
 
 #chat-box.hidden {
@@ -291,11 +336,14 @@ h3 {
   resize: none;
   font-size: 16px;
 }
+#message::-webkit-scrollbar {
+  display: none;
+}
 
 .btnsubuser {
   padding: 12px;
-  background-color: #007bff;
-  color: white;
+  background-color: #f8f5ff;
+  color: #040720;
   border: none;
   border-radius: 10px;
   cursor: pointer;
@@ -308,15 +356,15 @@ h3 {
 }
 
 .btnsubuser:hover {
-  background-color: #fff;
+  background-color: #040720;
   transform: translateY(-1px);
-  color: #040720;
+  color: #fff;
 }
 
 .btnbackuser {
   padding: 12px;
-  background-color: #007bff;
-  color: white;
+  background-color: #f8f5ff;
+  color: #040720;
   border: none;
   border-radius: 10px;
   cursor: pointer;
@@ -328,9 +376,9 @@ h3 {
   text-decoration: none;
 }
 .btnbackuser:hover {
-  background-color: #fff;
+  background-color: #040720;
   transform: translateY(-1px);
-  color: #040720;
+  color: #fff;
 }
 
 .container {
@@ -342,3 +390,93 @@ h3 {
   display: flex;
 }
 
+
+
+/* announcement */
+/* Container Styling */
+.announcement-container {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh; /* Full height */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.announcement-title {
+  text-align: center;
+  color: #2c3e50;
+  margin-bottom: 20px;
+  font-size: 28px;
+}
+
+/* Form Styling */
+.announcement-form {
+  max-width: 500px;
+  width: 100%;
+  background: #fff;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-label {
+  font-weight: bold;
+  color: #444;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.form-input,
+.form-textarea,
+.form-file {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+.form-textarea {
+  resize: none;
+}
+
+.form-file {
+  background-color: #f9f9f9;
+  border: none;
+}
+
+/* Button Styling */
+.form-button {
+  background-color: #27ae60;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.form-button:hover {
+  background-color: #219150;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+  .announcement-form {
+    margin: 0 15px;
+    padding: 20px;
+  }
+
+  .announcement-title {
+    font-size: 24px;
+  }
+}
