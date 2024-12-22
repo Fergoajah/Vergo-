@@ -3,7 +3,9 @@
 Website ini digunakan untuk mencoba beberapa kerentanan yang ada, untuk tujuan pentesting.
 ## Getting Started
 Siapkan beberapa database yang diperlukan:
+
 Database Users
+```
 CREATE TABLE users (
     id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
     nama VARCHAR(100),
@@ -14,8 +16,10 @@ CREATE TABLE users (
     role ENUM('admin', 'user'),
     last_seen_announcement TIMESTAMP
 );
+```
 
 Database Messages
+```
 CREATE TABLE messages (
     id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
     sender VARCHAR(50) NOT NULL,
@@ -23,8 +27,10 @@ CREATE TABLE messages (
     message TEXT NOT NULL,
     timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+```
 
 Database Announcement
+```
 CREATE TABLE announcements (
     id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
@@ -33,8 +39,10 @@ CREATE TABLE announcements (
     file_path VARCHAR(255),
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
+```
 
 Database Announcement_reads
+```
 CREATE TABLE announcement_reads (
     id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
     user_id INT(11) NOT NULL,
@@ -43,6 +51,7 @@ CREATE TABLE announcement_reads (
     KEY(user_id),
     KEY(announcement_id)
 );
+```
 
 
 Ikuti Langkah Langkah dibawah ini untuk melakukan instalasi:
