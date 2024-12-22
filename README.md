@@ -102,6 +102,8 @@ Ini adalah beberapa fitur yang saya tawarkan untuk bisa dicoba dalam melakukan p
 ### Notification
 ![image](https://github.com/user-attachments/assets/4f9d7342-1b3d-4388-b87d-0f9cc3408d62)
 
+### Notification Detail
+![image](https://github.com/user-attachments/assets/4833a697-669f-4110-bfbd-0138f7c7a43c)
 
 
 
