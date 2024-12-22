@@ -33,39 +33,19 @@ $resultNew = $stmtNew->get_result();
 $unreadCount = $resultNew->fetch_assoc()['unread_count'];
 
 // Fetch all announcements
-$queryAll = "SELECT * FROM announcements ORDER BY created_at DESC";
-$resultAll = $mysqli->query($queryAll);
+$queryAll = "
+    SELECT a.*, 
+           CASE WHEN ar.announcement_id IS NULL THEN 0 ELSE 1 END AS is_read 
+    FROM announcements a
+    LEFT JOIN announcement_reads ar 
+    ON a.id = ar.announcement_id AND ar.user_id = ?
+    ORDER BY a.created_at DESC
+";
+$stmtAll = $mysqli->prepare($queryAll);
+$stmtAll->bind_param("i", $user_id);
+$stmtAll->execute();
+$resultAll = $stmtAll->get_result();
 
-// Mark announcement as read
-if (isset($_GET['view']) && is_numeric($_GET['view'])) {
-    $announcement_id = intval($_GET['view']);
-    $checkRead = "
-        SELECT * FROM announcement_reads 
-        WHERE user_id = ? AND announcement_id = ?
-    ";
-    $stmtCheck = $mysqli->prepare($checkRead);
-    $stmtCheck->bind_param("ii", $user_id, $announcement_id);
-    $stmtCheck->execute();
-    $resultCheck = $stmtCheck->get_result();
-
-    if ($resultCheck->num_rows === 0) {
-        $insertRead = "INSERT INTO announcement_reads (user_id, announcement_id) VALUES (?, ?)";
-        $stmtInsert = $mysqli->prepare($insertRead);
-        $stmtInsert->bind_param("ii", $user_id, $announcement_id);
-        $stmtInsert->execute();
-    }
-
-    // Redirect to file or stay on page
-    $queryFile = "SELECT file_path FROM announcements WHERE id = ?";
-    $stmtFile = $mysqli->prepare($queryFile);
-    $stmtFile->bind_param("i", $announcement_id);
-    $stmtFile->execute();
-    $resultFile = $stmtFile->get_result();
-    if ($file = $resultFile->fetch_assoc()) {
-        header("Location: " . $file['file_path']);
-        exit();
-    }
-}
 ?>
 <!DOCTYPE html>
 <html>
@@ -134,6 +114,11 @@ if (isset($_GET['view']) && is_numeric($_GET['view'])) {
             z-index: 1000;
         }
 
+        .notification-dropdown::-webkit-scrollbar {
+            display: none;
+            /* Untuk Chrome, Safari, dan Opera */
+        }
+
         .notification-dropdown.active {
             display: block;
             /* Tampilkan dropdown saat aktif */
@@ -152,6 +137,8 @@ if (isset($_GET['view']) && is_numeric($_GET['view'])) {
         .notification-item {
             padding: 10px;
             border-bottom: 1px solid #ddd;
+            background-color: #f8f9fa;
+            /* Warna default */
         }
 
         .notification-item:last-child {
@@ -179,6 +166,16 @@ if (isset($_GET['view']) && is_numeric($_GET['view'])) {
         .notification-item a:hover {
             text-decoration: underline;
         }
+
+        .notification-item.unread {
+            background-color: #e9f7f9;
+            /* Warna pesan belum dibaca */
+        }
+
+        .notification-item.read {
+            background-color: #f8f9fa;
+            /* Warna pesan sudah dibaca */
+        }
     </style>
 </head>
 
@@ -192,8 +189,8 @@ if (isset($_GET['view']) && is_numeric($_GET['view'])) {
         <p><span class="label">Alamat:</span> <?= ($user['alamat']); ?></p>
         <a class='logout' href="logout.php">Logout</a>
     </div>
-<!-- Notification Icon -->
-<div class="notification-container">
+    <!-- Notification Icon -->
+    <div class="notification-container">
         <i class="fas fa-bell notification-icon" id="notifIcon">
             <?php if ($unreadCount > 0): ?>
                 <span class="badge"><?= $unreadCount; ?></span>
@@ -202,15 +199,21 @@ if (isset($_GET['view']) && is_numeric($_GET['view'])) {
         <div class="notification-dropdown" id="notifDropdown">
             <h3>Announcements</h3>
             <?php while ($announcement = $resultAll->fetch_assoc()): ?>
-                <div class="notification-item">
-                    <h4><?= htmlspecialchars($announcement['title']); ?></h4>
-                    <p><?= nl2br(htmlspecialchars($announcement['message'])); ?></p>
+                <?php $isReadClass = $announcement['is_read'] ? 'read' : 'unread'; ?>
+                <div class="notification-item <?= $isReadClass; ?>">
+                    <h4><?= $announcement['title']; ?></h4>
+                    <p>
+                        <?php
+                        // Memotong pesan jika lebih panjang dari 100 karakter
+                        $message = $announcement['message'];
+                        $shortMessage = strlen($message) > 100 ? substr($message, 0, 100) . '...' : $message;
+                        echo nl2br(htmlspecialchars($shortMessage));
+                        ?>
+                    </p>  
                     <small>Posted on: <?= $announcement['created_at']; ?></small>
-                    <?php if (!empty($announcement['file_path'])): ?>
-                        <p>
-                            <a href="?view=<?= $announcement['id']; ?>">View Attachment</a>
-                        </p>
-                    <?php endif; ?>
+                    <p>
+                        <a href="announcement_detail.php?id=<?= $announcement['id']; ?>">View Details</a>
+                    </p>
                 </div>
             <?php endwhile; ?>
         </div>
