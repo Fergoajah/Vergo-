@@ -6,7 +6,7 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #040720;
+  background-color: #f8f5ff; 
   flex-direction: column;
 }
 
@@ -143,14 +143,6 @@ table td {
 /* dash_user.php */
 
 /* General Styling */
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f8f5ff; /* Warna latar belakang yang lembut */
-  margin: 0;
-  padding: 0;
-  color: #333;
-}
-
 .abc {
   max-width: 500px; /* Lebih cocok di berbagai perangkat */
   margin: 50px auto;
@@ -478,5 +470,48 @@ h3 {
 
   .announcement-title {
     font-size: 24px;
+  }
+}
+
+.announcement-detail {
+  max-width: 800px;
+  margin: 50px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Announcement title */
+.announcement-detail h1 {
+  font-size: 30px;
+  margin-bottom: 10px;
+  color: #333;
+  text-align: center;
+}
+
+/* Timestamp styling */
+.announcement-detail p {
+  margin: 10px 0;
+  font-size: 14px;
+  color: #666;
+}
+
+/* Message section */
+.message p {
+  font-size: 16px;
+  line-height: 1.6;
+  margin: 20px 0;
+  color: #444;
+}
+/* Responsive design */
+@media (max-width: 600px) {
+  .announcement-detail {
+      padding: 15px;
+      margin: 20px;
+  }
+
+  .announcement-detail h1 {
+      font-size: 20px;
   }
 }
