@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="Style/pengumuman.css">
     <title>Create Announcement</title>
 </head>
 <body>
     <div class="announcement-container">
-        <h2 class="announcement-title">Create Announcement</h2>
         <form action="tambah_pengumuman.php" method="POST" enctype="multipart/form-data" class="announcement-form">
+        <h2 class="announcement-title">Create Announcement</h2>
             <div class="form-group">
                 <label for="title" class="form-label">Title:</label>
                 <input type="text" name="title" id="title" class="form-input" required>
