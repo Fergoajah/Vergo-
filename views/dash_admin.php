@@ -21,10 +21,12 @@ if ($result && $result->num_rows > 0) {
 ?>
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Admin Dashboard</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="Style/admin.css">
 </head>
+
 <body>
     <div class="admindiv">
         <h2 class="adminh2">DASHBOARD ADMIN</h2>
@@ -41,13 +43,16 @@ if ($result && $result->num_rows > 0) {
                     <td><?= $user['nama'] ?></td>
                     <td><?= $user['username'] ?></td>
                     <td><?= $user['email'] ?></td>
-                    <td><?= $user['alamat']?></td>
+                    <td><?= $user['alamat'] ?></td>
                     <td><?= $user['role'] ?></td>
                 </tr>
             <?php endforeach; ?>
         </table>
-        <a class="logout" href="logout.php">Logout</a>
-        <a class="logout" href="pengumuman.php">Create Announcement</a>
+        <div class="btnlogout">
+            <a class="logout" href="logout.php">Logout</a>
+            <a class="logout" href="pengumuman.php">Create Announcement</a>
+        </div>
     </div>
 </body>
+
 </html>
