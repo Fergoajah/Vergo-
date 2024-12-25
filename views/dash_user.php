@@ -54,129 +54,7 @@ $resultAll = $stmtAll->get_result();
     <title>User Dashboard</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="style.css">
-    <style>
-        /* Styling Icon Notification */
-        .notification-container {
-            position: fixed;
-            /* Tetap berada di layar saat di-scroll */
-            top: 20px;
-            /* Jarak dari atas */
-            right: 20px;
-            /* Jarak dari kanan */
-            z-index: 9999;
-            /* Pastikan selalu di atas elemen lain */
-        }
-
-        .notification-icon {
-            position: relative;
-            font-size: 24px;
-            cursor: pointer;
-            color: #333;
-            /* Warna ikon */
-        }
-
-        .notification-icon:hover {
-            color: #007BFF;
-            /* Warna saat di-hover */
-        }
-
-        .badge {
-            position: absolute;
-            top: -8px;
-            /* Posisi badge di atas ikon */
-            right: -8px;
-            /* Posisi badge di kanan ikon */
-            background: red;
-            color: white;
-            border-radius: 50%;
-            padding: 3px 8px;
-            font-size: 12px;
-            font-weight: bold;
-        }
-
-        /* Dropdown Notification */
-        .notification-dropdown {
-            position: absolute;
-            top: 40px;
-            /* Muncul di bawah ikon */
-            right: 0;
-            /* Sejajar dengan ikon */
-            background: white;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            width: 320px;
-            max-height: 400px;
-            overflow-y: auto;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            display: none;
-            /* Default tersembunyi */
-            z-index: 1000;
-        }
-
-        .notification-dropdown::-webkit-scrollbar {
-            display: none;
-            /* Untuk Chrome, Safari, dan Opera */
-        }
-
-        .notification-dropdown.active {
-            display: block;
-            /* Tampilkan dropdown saat aktif */
-        }
-
-        .notification-dropdown h3 {
-            text-align: center;
-            margin: 0;
-            padding: 10px;
-            background: #f5f5f5;
-            border-bottom: 1px solid #ddd;
-            font-size: 16px;
-            font-weight: bold;
-        }
-
-        .notification-item {
-            padding: 10px;
-            border-bottom: 1px solid #ddd;
-            background-color: #f8f9fa;
-            /* Warna default */
-        }
-
-        .notification-item:last-child {
-            border-bottom: none;
-        }
-
-        .notification-item h4 {
-            margin: 0;
-            font-size: 14px;
-            font-weight: bold;
-        }
-
-        .notification-item p {
-            margin: 5px 0;
-            font-size: 12px;
-            color: #555;
-        }
-
-        .notification-item a {
-            color: #007BFF;
-            text-decoration: none;
-            font-size: 12px;
-        }
-
-        .notification-item a:hover {
-            text-decoration: underline;
-        }
-
-        .notification-item.unread {
-            background-color: #e9f7f9;
-            /* Warna pesan belum dibaca */
-        }
-
-        .notification-item.read {
-            background-color: #f8f9fa;
-            /* Warna pesan sudah dibaca */
-        }
-    </style>
+    <link rel="stylesheet" href="Style/user.css">
 </head>
 
 <body>
@@ -207,7 +85,7 @@ $resultAll = $stmtAll->get_result();
                         // Memotong pesan jika lebih panjang dari 100 karakter
                         $message = $announcement['message'];
                         $shortMessage = strlen($message) > 100 ? substr($message, 0, 100) . '...' : $message;
-                        echo nl2br(htmlspecialchars($shortMessage));
+                        echo nl2br($shortMessage);
                         ?>
                     </p>  
                     <small>Posted on: <?= $announcement['created_at']; ?></small>
