@@ -3,36 +3,133 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Chat</title>
-    <link rel="stylesheet" href="style.css" />
+    <title>Chat UI</title>
+    <link rel="stylesheet" href="Style/chat.css" />
   </head>
   <body>
-
-    <!-- Chat Page -->
     <div class="container">
-      <h3>Chat</h3>
-      <form id="chat-form">
+      <div class="member-list" id="member-list">
+        <!-- List user akan dimuat secara dinamis di sini -->
+      </div>
 
-        <!-- pilih user -->
-        <select id="receiver" required>
-          <option value="">--Pilih User--</option>
-        </select>
-
-        <!-- section chat -->
-        <div id="chat-box" class="hidden">
-
-        </div>
-
-        <!-- ketik pesan -->
-        <textarea id="message" placeholder="Ketik Pesan" required></textarea>
-        <div class="btnchat">
-          <a class="btnbackuser" href="dash_user.php">Back</a>
-          <button class="btnsubuser" type="submit">Send</button>
-        </div>
-        
-      </form>
+      <div class="chat-section">
+        <div class="chat-header">Chat</div>
+        <div id="chat-box" class="chat-box hidden"></div>
+        <form id="chat-form" class="chat-input">
+          <textarea id="message" placeholder="Ketik Pesan" required></textarea>
+          <button type="submit">Send</button>
+        </form>
+      </div>
     </div>
-    <a class="logout" href="logout.php">Logout</a>
-    <script src="chat.js"></script>
+    <a class="logout" href="dash_user.php">Back</a>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const chatBox = document.getElementById("chat-box");
+        const chatForm = document.getElementById("chat-form");
+        const memberList = document.getElementById("member-list");
+        const messageInput = document.getElementById("message");
+
+        let currentReceiver = null;
+
+        // Bagian untuk meload user dari server
+        const loadUsers = () => {
+          fetch("users_handler.php")
+            .then((response) => response.json())
+            .then((users) => {
+              memberList.innerHTML = users
+                .map(
+                  (user) => `
+                  <div class="member" data-username="${user.username}">
+                    <img src="img/orang.jpeg" alt="${user.username}" />
+                    <div class="info">
+                      <h4>${user.username}</h4>
+                      <p>${user.status || ""}</p>
+                    </div>
+                  </div>`
+                )
+                .join("");
+
+              document.querySelectorAll(".member").forEach((member) => {
+                member.addEventListener("click", () => {
+                  document
+                    .querySelectorAll(".member")
+                    .forEach((m) => m.classList.remove("active"));
+                  member.classList.add("active");
+                  currentReceiver = member.dataset.username;
+                  loadChat();
+                });
+              });
+            });
+        };
+
+        // bagian untuk meload chat dari user tertentu
+        const formatDate = (timestamp) => {
+          const options = { day: "2-digit", month: "2-digit", year: "numeric" };
+          return new Date(timestamp).toLocaleDateString("id-ID", options);
+        };
+
+        const formatTime = (timestamp) => {
+          const options = { hour: "2-digit", minute: "2-digit", hour12: false };
+          return new Date(timestamp).toLocaleTimeString("id-ID", options);
+        };
+
+        const loadChat = () => {
+          chatBox.classList.toggle("hidden", !currentReceiver);
+
+          if (!currentReceiver) return;
+
+          fetch(
+            `chat_handler.php?receiver=${encodeURIComponent(currentReceiver)}`
+          )
+            .then((res) => res.json())
+            .then((messages) => {
+              let lastDate = null;
+
+              chatBox.innerHTML = messages
+                .map(({ sender, message, timestamp }) => {
+                  const date = formatDate(timestamp);
+                  const time = formatTime(timestamp);
+                  let dateLabel = "";
+
+                  if (date !== lastDate) {
+                    dateLabel = `<div class="date-label">${date}</div>`;
+                    lastDate = date;
+                  }
+
+                  return `
+                    ${dateLabel}
+                    <div class="chat-message ${
+                      sender === currentReceiver ? "receiver" : "sender"
+                    }">
+                    ${message}<div class="timestamp">${time}</div>
+                    </div>`;
+                })
+                .join("");
+              chatBox.scrollTop = chatBox.scrollHeight;
+            });
+        };
+
+        loadUsers();
+
+        // bagian untuk pengiriman pesan
+        chatForm.addEventListener("submit", (e) => {
+          e.preventDefault();
+          const message = messageInput.value.trim();
+
+          if (currentReceiver && message) {
+            fetch("chat_handler.php", {
+              method: "POST",
+              headers: { "Content-Type": "application/x-www-form-urlencoded" },
+              body: `receiver=${encodeURIComponent(
+                currentReceiver
+              )}&message=${encodeURIComponent(message)}`,
+            }).then(() => {
+              messageInput.value = ""; // Kosongkan input pesan
+              loadChat(); // Reload chat
+            });
+          }
+        });
+      });
+    </script>
   </body>
 </html>
