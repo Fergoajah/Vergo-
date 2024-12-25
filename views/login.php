@@ -6,19 +6,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    // hash password input user dengan MD5
     $hashed_password = md5($password);
 
-    // Query untuk mengambil data user/admin dengan celah SQL Injection
     $query = "SELECT * FROM users WHERE username = '$username' AND password = '$hashed_password'";
-    $result = $mysqli->query($query); // Menggunakan query langsung
-
+    $result = $mysqli->query($query); 
     if ($result && $result->num_rows > 0) {
         $user = $result->fetch_assoc();
         $_SESSION['username'] = $user['username'];
         $_SESSION['role'] = $user['role'];
 
-        // Redirect berdasarkan role
         if ($user['role'] === 'admin') {
             header('Location: /views/dash_admin.php');
             exit();
@@ -35,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html>
 <head>
     <title>Login</title>
-    <link rel="stylesheet" href="/views/style.css">
+    <link rel="stylesheet" href="/views/Style/login.css">
 </head>
 <body>
     <form class="formlog" method="POST">
@@ -46,6 +42,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <label>Password:</label><br>
         <input type="password" name="password" required><br>
         <button class="logbtn" type="submit">Login</button>
+        <div class="register">
+            <a href="/views/registrasi.php">Registrasi</a>
+        </div>
     </form>
 </body>
 </html>
