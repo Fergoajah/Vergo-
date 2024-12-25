@@ -66,7 +66,7 @@ if ($resultCheck->num_rows === 0) {
 
 <head>
     <title>Announcement Details</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="Style/detail_pengumuman.css">
 </head>
 
 <body>
@@ -84,7 +84,7 @@ if ($resultCheck->num_rows === 0) {
             </p>
         <?php endif; ?>
         <div class="btnannoun">
-        <a class="logout" href="dash_user.php">Back</a>
+            <a class="logout" href="dash_user.php">Back</a>
         </div>
     </div>
 </body>
