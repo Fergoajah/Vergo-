@@ -1,0 +1,186 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f0f1f3;
+  flex-direction: column;
+}
+.announcement-container {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh; /* Full height */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.announcement-title {
+  text-align: center;
+  color: #183153;
+  margin-bottom: 20px;
+  font-size: 28px;
+}
+
+/* Form Styling */
+.announcement-form {
+  max-width: 500px;
+  width: 100%;
+  background: #fff;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+  border: 5px solid #000;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-label {
+  font-weight: bold;
+  color: #183153;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.form-input,
+textarea,
+.form-file {
+  width: 100%;
+  padding: 10px;
+  border: 3px solid #000;
+  border-radius: 5px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+.form-textarea {
+  resize: none;
+  border: 3px solid #000 !important;
+}
+
+.form-file {
+  background-color: #f9f9f9;
+  border: none;
+}
+
+/* Button Styling */
+.form-button {
+  background-color: #27ae60;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.form-button:hover {
+  background-color: #219150;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+  .announcement-form {
+    margin: 0 15px;
+    padding: 20px;
+  }
+
+  .announcement-title {
+    font-size: 24px;
+  }
+}
+
+.announcement-detail {
+  max-width: 800px;
+  margin: 50px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border: 5px solid #000;
+}
+
+/* Announcement title */
+.announcement-detail h1 {
+  font-size: 30px;
+  margin-bottom: 10px;
+  color: #333;
+  text-align: center;
+}
+
+/* Timestamp styling */
+.announcement-detail p {
+  margin: 10px 0;
+  font-size: 14px;
+  color: #666;
+}
+
+.announcement-detail hr {
+  border: none;
+  height: 5px;
+  background-color: #000;
+  margin: 15px 0;
+  color: #000;
+}
+
+/* Message section */
+.message p {
+  font-size: 16px;
+  line-height: 1.6;
+  margin: 20px 0;
+  color: #444;
+}
+/* Responsive design */
+@media (max-width: 600px) {
+  .announcement-detail {
+    padding: 15px;
+    margin: 20px;
+  }
+
+  .announcement-detail h1 {
+    font-size: 20px;
+  }
+}
+
+.btnsubuser, .btnbackuser {
+    flex: 1;
+    padding: 12px;
+    background-color: #ffd43b; /* Kuning cerah, khas komik */
+    color: #183153; /* Biru tua untuk kontras */
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+    border: 4px solid #000; /* Garis hitam tebal untuk efek komik */
+    font-weight: bold;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 4px 4px 0px #000; /* Bayangan hitam untuk efek kartun */
+    box-sizing: border-box;
+}
+
+.btnsubuser:hover, .btnbackuser:hover {
+    background-color: #ffeb3b; /* Kuning yang lebih terang */
+    transform: translate(-4px, -4px); /* Tombol terlihat seperti naik ke atas */
+    color: #000; /* Warna teks hitam */
+    box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.8); /* Bayangan lebih besar */
+    border-color: #000; /* Tetap hitam untuk konsistensi */
+}
+
+.btnchat {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+
+

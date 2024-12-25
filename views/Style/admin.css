@@ -1,0 +1,85 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #F0F1F3; 
+    flex-direction: column;
+  }
+  .admindiv {
+  background: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+  padding: 20px 30px;
+  width: 90%;
+  max-width: 800px;
+  border: 5px solid #000;
+}
+
+.adminh2 {
+  color: #000;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  border: 3px solid #000;
+}
+
+table th,
+table td {
+  text-align: left;
+  padding: 12px 15px;
+  border-top: 3px solid #000;
+}
+
+table th {
+  background-color: #183153;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 20px;
+}
+
+table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+table tr:hover {
+  background-color: #aeced5;
+}
+
+table td {
+  border-bottom: 1px solid #ddd;
+  font-size: 18px;
+}
+
+.logout {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 20px;
+  text-decoration: none;
+  background-color: #ffd43b; /* Kuning cerah, khas komik */
+  color: #183153; /* Biru tua untuk kontras */
+  border-radius: 8px;
+  font-weight: bold;
+  transition: background-color 0.3s;
+  border: 4px solid #000; /* Garis hitam tebal untuk efek komik */
+  transition: all 0.3s ease-in-out;
+  font-weight: bold;
+  box-shadow: 4px 4px 0px #000; /* Bayangan hitam untuk efek kartun */
+}
+
+.logout:hover {
+    background-color: #ffeb3b; /* Kuning yang lebih terang */
+    transform: translate(-4px, -4px); /* Tombol terlihat seperti naik ke atas */
+    color: #000; /* Warna teks hitam */
+    box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.8); /* Bayangan lebih besar */
+    border-color: #000; /* Tetap hitam untuk konsistensi */
+} 

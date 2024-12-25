@@ -1,0 +1,236 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #F0F1F3;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  .container {
+    width: 1500px;
+    height: 800px;
+    display: flex;
+    background-color: #1f1f1f;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    border: 5px solid #000;
+  }
+
+  .member-list {
+    width: 30%;
+    background-color: #183153;
+    padding: 20px;
+    overflow-y: auto;
+    border-right: 5px solid #000;
+  }
+
+  .member {
+    display: flex;
+    align-items: center;
+    padding: 25px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    transition: all 0.3s ease-in-out; 
+    box-shadow: 4px 4px 0px #000; /* Bayangan hitam untuk efek kartun */
+    border: 4px solid #000; /* Garis hitam tebal untuk efek komik */ 
+}
+
+  .member:hover {
+    background-color: #fff;
+    color: #040720;
+    transform: translate(-4px, -4px); /* Tombol terlihat seperti naik ke atas */
+    box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.8); /* Bayangan lebih besar */
+    border-color: #000; /* Tetap hitam untuk konsistensi */
+  }
+
+  .member.active {
+    background-color: #264c82;
+    border: 3px solid #000;
+  }
+
+  .member img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+
+  .member .info {
+    flex: 1;
+  }
+
+  .member .info h4 {
+    margin: 0;
+    font-size: 20px;
+  }
+
+  .member .info p {
+    margin: 2px 0 0;
+    font-size: 12px;
+    color: #aaa;
+  }
+
+  .chat-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #1f1f1f;
+  }
+
+  .chat-header {
+    padding: 15px;
+    font-size: 25px;
+    background-color: #183153;
+    border-bottom: 5px solid #000;
+  }
+
+  #chat-box {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto; /* Scroll otomatis jika konten terlalu panjang */
+    height: 100%;
+    background-color: #fff;
+    padding: 15px;
+    gap: 10px; /* Memberikan jarak antar pesan */
+  }
+
+  #chat-box::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Gaya untuk setiap pesan */
+  .chat-message {
+    display: inline-block;
+    max-width: 70%; /* Batasi lebar pesan */
+    word-wrap: break-word; /* Bungkus teks panjang */
+    overflow-wrap: break-word; /* Tambahan untuk browser modern */
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 10px;
+    font-size: 18px;
+  }
+
+  /* Gaya untuk pesan yang dikirim */
+  .sender {
+    background-color: #007bff;
+    color: white;
+    align-self: flex-end;
+    text-align: left; /* Bisa diubah ke kanan jika diinginkan */
+    word-break: break-word; /* Tambahan untuk memaksa pembungkusan */
+  }
+
+  /* Gaya untuk pesan yang diterima */
+  .receiver {
+    background-color: #444;
+    color: white;
+    align-self: flex-start;
+    text-align: left;
+    word-break: break-word; /* Tambahan untuk memaksa pembungkusan */
+  }
+
+  /* Label tanggal */
+  .date-label {
+    align-self: center;
+    font-size: 12px;
+    color: #888;
+    margin: 5px 0;
+  }
+
+  /* Input pesan */
+  textarea#message {
+    width: 100%;
+    border: none;
+    padding: 10px;
+    background-color: #fff;
+    color: #000;
+    font-size: 14px;
+    resize: none; /* Mencegah textarea diubah ukurannya */
+    border: 3px solid #000;
+  }
+
+  .timestamp {
+    font-size: 10px;
+    margin-top: 5px;
+    text-align: right;
+    color: #ccc;
+  }
+
+  .chat-input {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    background-color: #183153;
+    border-top: 5px solid #000;
+  }
+
+  .chat-input textarea {
+    flex: 1;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    resize: none;
+    background-color: #1f1f1f;
+    color: #000;
+  }
+
+  .chat-input button {
+    padding: 18px 15px;
+    border: none;
+    border-radius: 1px;
+    background-color: #ffd43b; /* Kuning cerah, khas komik */
+    color: #183153; /* Biru tua untuk kontras */
+    cursor: pointer;
+    border-radius: 7px;
+    transition: background-color 0.3s;
+    transition: all 0.3s ease-in-out;
+    font-weight: bold;
+    box-shadow: 4px 4px 0px #000; /* Bayangan hitam untuk efek kartun */
+    border: 4px solid #000; /* Garis hitam tebal untuk efek komik */
+  }
+
+  .chat-input button:hover {
+    background-color: #ffeb3b; /* Kuning yang lebih terang */
+    transform: translate(-4px, -4px); /* Tombol terlihat seperti naik ke atas */
+    color: #000; /* Warna teks hitam */
+    box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.8); /* Bayangan lebih besar */
+    border-color: #000; /* Tetap hitam untuk konsistensi */
+    }
+
+  .logout {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 15px 20px;
+    border-radius: 10px;
+    background-color: #ffd43b; /* Kuning cerah, khas komik */
+    color: #183153; /* Biru tua untuk kontras */
+    text-decoration: none;
+    transition: background-color 0.3s;
+    transition: all 0.3s ease-in-out;
+    font-weight: bold;
+    box-shadow: 4px 4px 0px #000; /* Bayangan hitam untuk efek kartun */
+    border: 4px solid #000; /* Garis hitam tebal untuk efek komik */
+  }
+
+  .logout:hover {
+    background-color: #ffeb3b; /* Kuning yang lebih terang */
+    transform: translate(-4px, -4px); /* Tombol terlihat seperti naik ke atas */
+    color: #000; /* Warna teks hitam */
+    box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.8); /* Bayangan lebih besar */
+    border-color: #000; /* Tetap hitam untuk konsistensi */
+  }
+
+  .date-label {
+    text-align: center;
+    font-size: 12px;
+    color: #aaa;
+    margin: 10px 0;
+  }
