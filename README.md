@@ -1,6 +1,6 @@
 # Vergo-
 
-Website ini digunakan untuk mencoba beberapa kerentanan yang ada, untuk tujuan pentesting.
+Website ini digunakan untuk mencoba beberapa kerentanan yang ada, untuk tujuan sebagai lab atau target serangan untuk uji coba pentesting.
 ## Getting Started
 Siapkan beberapa database yang diperlukan:
 
@@ -85,25 +85,28 @@ $ cd Vergo-
 Ini adalah beberapa fitur yang saya tawarkan untuk bisa dicoba dalam melakukan pentesting
 
 ### Login Page
-![image](https://github.com/user-attachments/assets/7b5cfb93-668b-4682-a852-c619ba64f8e0)
+![image](https://github.com/user-attachments/assets/4355d948-f14c-4bee-90b2-9e5ebeeebe6c)
+
+### Registration Page
+![image](https://github.com/user-attachments/assets/aff5b33b-de1a-4a8b-9c49-41f60afc78ec)
 
 ### Dashboard User
-![image](https://github.com/user-attachments/assets/0073e92a-8361-4e7c-8d71-b99878404297)
+![image](https://github.com/user-attachments/assets/c5221143-3c46-477d-aa47-9f7f2b9dd541)
 
 ### Dashboard Admin
-![image](https://github.com/user-attachments/assets/f45da4ad-76ab-4703-86e6-f70cae37b352)
+![image](https://github.com/user-attachments/assets/74a68332-fae8-45ec-9290-aec8951c0033)
 
 ### Chat
-![image](https://github.com/user-attachments/assets/cae40d41-06a5-4f47-931c-3a7fd9a4f8e3)
+![image](https://github.com/user-attachments/assets/20ce720f-8c38-42e8-b324-0d748db7426f)
 
 ### Announcement Page
-![image](https://github.com/user-attachments/assets/2caa9535-6b01-4b1c-a127-a4e98ffb68f9)
+![image](https://github.com/user-attachments/assets/0f7cf819-49e9-4952-b671-253096854319)
 
 ### Notification
-![image](https://github.com/user-attachments/assets/4f9d7342-1b3d-4388-b87d-0f9cc3408d62)
+![image](https://github.com/user-attachments/assets/acfb6400-b6f6-4d8c-8fa8-252a81e073f4)
 
 ### Notification Detail
-![image](https://github.com/user-attachments/assets/4833a697-669f-4110-bfbd-0138f7c7a43c)
+![image](https://github.com/user-attachments/assets/5280f92b-a9e1-48da-acb3-ea4b852c8b50)
 
 
 
